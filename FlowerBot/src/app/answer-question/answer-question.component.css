@@ -1,0 +1,34 @@
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+form div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;  
+}
+
+form div input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+form div button {
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form div button:hover {
+  background-color: #0056b3;
+}
