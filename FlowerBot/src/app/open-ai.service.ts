@@ -21,52 +21,17 @@ export type OpenAIResponse = {
 })
 export class OpenAIService {
   private httpClient = inject(HttpClient);
-  conversation: string[] = [];
-  systemPrompt: string = 'Answer sarcastically, like a pirate parrot 🦜🏴‍☠️';
 
-  constructor() {}
-
-  async answerQuestions(question: string): Promise<OpenAIResponse> {
-    if (!question) {
-      return {
-        choices: [
-          {
-            message: {
-              role: 'system',
-              content: 'Please ask a question first, matey!',
-            },
-          },
-        ],
-        usage: {
-          prompt_tokens: 0,
-          completion_tokens: 0,
-          total_tokens: 0,
-        },
-      };
-    }
-
-    this.conversation.push(question);
-
-    let answer: OpenAIResponse = await firstValueFrom(
-      this.httpClient.post<OpenAIResponse>('http://localhost:3000/openai/deployments/gpt-4o-mini/chat/completions', {
-        messages: [
-          {
-            role: 'system',
-            content: this.systemPrompt,
-          },
-          {
-            role: 'user',
-            content: this.conversation.join('\n'),
-          },
-        ],
-      })
+  answerQuestions(question: string, systemPrompt: string): Promise<OpenAIResponse> {
+    return firstValueFrom(
+      this.httpClient.post<OpenAIResponse>(
+        'http://localhost:3000/openai/deployments/gpt-4o-mini/chat/completions', {
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: question }
+          ],
+        }
+      )
     );
-
-    this.conversation.push(answer.choices[0].message.content);
-    return answer;
-  }
-
-  async updateSystemPrompt(prompt: string): Promise<void> {
-    this.systemPrompt = prompt;
   }
 }
