@@ -11,6 +11,7 @@ import { MarkdownModule } from 'ngx-markdown';
   styleUrl: './answer-question.component.css'
 })
 export class AnswerQuestionComponent {
+[x: string]: any;
   question = signal('');
   conversation = signal<string[]>([]);
 

@@ -1,1 +1,22 @@
 <p>system-prompt works!</p>
+<div class="system-prompt-container">
+  <!-- Dropdown or selection for choosing a prompt type -->
+  <label for="prompt-select">Select Prompt Type:</label>
+  <select id="prompt-select" [(ngModel)]="selectedPrompt" (change)="updatePrompt(selectedPrompt)">
+    <option value="default">Default</option>
+    <option value="custom">Custom</option>
+  </select>
+
+  <div *ngIf="!isDefaultPrompt">
+    <label for="custom-prompt">Custom Prompt:</label>
+    <input
+      id="custom-prompt"
+      [(ngModel)]="systemPrompt"
+      placeholder="Enter your custom prompt"
+    />
+  </div>
+
+  <p>Current System Prompt: {{ systemPrompt }}</p>
+
+  <button (click)="navigateToAnswerQuestion()">Proceed to Answer Question</button>
+</div>
